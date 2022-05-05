@@ -1,0 +1,88 @@
+<div class="container-fluid g-0 p-2">
+
+    <div class="row g-0">
+
+        <div class="col-md-2 d-flex justify-content-center align-items-center">
+            <img src="../../assets/Images/{{employee.profile}}" alt="Profile Image" class="profile">
+        </div>
+
+        <div class="col ps-2">
+
+            <div class="row g-0">
+
+                <div class="col-md-10 text-center">
+                    <span class="name">{{employee.firstname | titlecase}} {{employee.lastname | titlecase}}</span>
+                </div>
+
+                <div class="col-md-2 d-flex justify-content-center align-items-center">
+                    <div class="btn-group" role="group">
+                        <button type="button" class="btn btn-outline-success"
+                            (click)="editEmployeeClicked()">Edit</button>
+                        <button type="button" class="btn btn-outline-danger"
+                            (click)="deleteEmployeeClicked()">Delete</button>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="row g-0 mt-3">
+
+                <div class="col-md">
+
+                    <table class="table table-hover mx-auto">
+                        <thead class="text-center fs-5 fst-italic text-secondary">
+                            <tr>
+                                <td colspan="2">Personal Details</td>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Birthdate</td>
+                                <td>{{employee.birthdate}}</td>
+                            </tr>
+                            <tr>
+                                <td>Gender</td>
+                                <td>{{employee.gender == 'm' ? "Male" : "Female"}}</td>
+                            </tr>
+                            <tr>
+                                <td>Education</td>
+                                <td>{{employee.education | titlecase}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                </div>
+
+                <div class="col">
+
+                    <table class="table table-hover mx-auto">
+                        <thead class="text-center fs-5 fst-italic text-secondary">
+                            <tr>
+                                <td colspan="2">Job Details</td>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Company</td>
+                                <td>{{employee.company | titlecase}}</td>
+                            </tr>
+                            <tr>
+                                <td>Experience</td>
+                                <td>{{employee.jobExperience}} yrs</td>
+                            </tr>
+                            <tr>
+                                <td>Salary</td>
+                                <td>{{employee.salary}} LPA</td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>

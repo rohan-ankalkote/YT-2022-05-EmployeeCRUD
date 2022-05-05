@@ -1,0 +1,148 @@
+<div class="container-fluid g-0">
+
+  <!-- HEADER -->
+  <app-header></app-header>
+
+  <!-- MAIN CONTENT -->
+  <main class="black-borde">
+
+    <!-- TOOBAR TO ADD AND SEARCH EMPLOYEES -->
+    <div class="toolbar">
+
+      <div class="add-employee">
+        <button type="button" class="btn btn-outline-success btn-lg" data-bs-toggle="modal"
+          data-bs-target="#exampleModal" #addEmployeeButton>Add Employee</button>
+      </div>
+
+      <div class="search-employees">
+        <input type="search" class="form-control" placeholder="Search Employees"
+          (input)="searchEmployees(searchInput.value)" #searchInput>
+      </div>
+
+    </div>
+
+    <!-- AREA TO DISPLAY ALL THE EMPLOYEES -->
+    <div class="employees">
+
+      <div class="row mt-5" *ngIf="employees.length == 0">
+        <div class="col text-center">
+          <span class="text-secondary fs-2 fw-bold fst-italic">There are No Employees Added!</span>
+        </div>
+      </div>
+
+      <div class="row mt-4" *ngFor="let employee of employeesToDisplay; let ei = index;">
+        <div class="col">
+          <app-employee [employee]="employee" (onRemoveEmployee)="removeEmployee($event)"
+            (onEditEmployee)="editEmployee($event)"></app-employee>
+        </div>
+      </div>
+
+    </div>
+  </main>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Enter Employee Information</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+      <div class="modal-body">
+
+        <form [formGroup]="employeeForm">
+
+          <!-- FIRST AND LAST NAME -->
+          <div class="row">
+            <div class="col">
+              <input type="text" class="form-control" placeholder="First Name" formControlName="firstname">
+            </div>
+            <div class="col">
+              <input type="text" class="form-control" placeholder="Last Name" formControlName="lastname">
+            </div>
+          </div>
+
+          <!-- PERSONAL INFORMATION -->
+          <div class="row mt-5">
+            <div class="col form-heading">
+              <h6 class="text-secondary fst-italic">Personal Information</h6>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col">
+              <label for="datepicker" class="form-label">Birthdate</label>
+              <input type="date" class="form-control" id="datepicker" formControlName="birthday">
+            </div>
+            <div class="col">
+              <div class="row">
+                <h6 class="text-secondary">Gender</h6>
+              </div>
+
+              <div class="row">
+                <div class="col">
+                  <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="gender" id="male" value="m"
+                      formControlName="gender">
+                    <label class="form-check-label" for="male">Male</label>
+                  </div>
+                  <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="gender" id="female" value="f"
+                      formControlName="gender">
+                    <label class="form-check-label" for="female">Female</label>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="row mt-3">
+            <div class="col">
+              <select class="form-select" formControlName="education">
+                <option value="default" selected>Select your Education</option>
+                <option *ngFor="let option of educationOptions; let i = index;" value="{{i}}">
+                  {{option | titlecase}}
+                </option>
+              </select>
+            </div>
+          </div>
+
+          <div class="row mt-3">
+            <div class="col">
+              <label for="profile" class="form-label">Profile Image</label>
+              <input type="file" class="form-control" id="profile" #fileInput>
+            </div>
+          </div>
+
+          <!-- JOB INFORMATION -->
+          <div class="row mt-5">
+            <div class="col form-heading">
+              <h6 class="text-secondary fst-italic">Job Information</h6>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col">
+              <input type="text" class="form-control" placeholder="Company Name" formControlName="company">
+            </div>
+          </div>
+
+          <div class="row mt-3">
+            <div class="col">
+              <input type="number" class="form-control" placeholder="Job Experience (yrs)"
+                formControlName="jobExperience">
+            </div>
+            <div class="col">
+              <input type="number" class="form-control" placeholder="Salary (LPA)" formControlName="salary">
+            </div>
+          </div>
+        </form>
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" data-bs-dismiss="modal" (click)="addEmployee()">Insert</button>
+      </div>
+    </div>
+  </div>
+</div>
